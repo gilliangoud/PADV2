@@ -8,11 +8,17 @@ GameObject = class GameObject {
         this.position = {x,y};
     }
 
-    getPosition(){return this.position;}
+    getPosition(){
+        return this.position;
+    }
 
-    getColor() {return this.color;}
+    getColor(){
+        return this.color;
+    }
 
-    setColor(r,g,b) {super.color = {r, g, b};}
+    setColor(r,g,b){
+        super.color = {r, g, b};
+    }
 }
 
 export default GameObject;

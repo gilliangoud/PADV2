@@ -3,8 +3,8 @@ import GameObject from "./GameObject.js";
 Player = class Player extends GameObject {
     constructor (xPos,yPos,colorR,colorG,colorB, name) {
         super(xPos,yPos,colorR,colorG,colorB);
-        this.name
-        this.actionPoints
+        this.name;
+        this.actionPoints;
         this.inventory = [];
     }
 
@@ -39,6 +39,9 @@ Player = class Player extends GameObject {
     }
 
     getInventory() {return this.inventory;}
+    
+    
+    
 
 }
 
