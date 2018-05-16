@@ -9,9 +9,10 @@ Game = class Game {
     }
 
     nextTurn() {
-        // TODO end players turn
-        //player.endturn
-        // currentplayerindex ++ or = player.id
+        this.currentPlayer = this.gameObjects[this.currentPlayerIndex];
+        this.currentPlayer.endTurn();
+        this.currentPlayerIndex++;
+        this.gameObjects[this.currentPlayerIndex].startTurn();
     }
 
     addPlayer(player) {

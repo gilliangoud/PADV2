@@ -6,16 +6,18 @@ Player = class Player extends GameObject {
         this.name
         this.actionPoints
         this.inventory = [];
+        this.activeTurn
     }
 
     getName() {return this.name;}
 
     endTurn() {
-        // TODO
+        this.activeTurn = false;
     }
 
     startTurn() {
-        // TODO
+        this.actionPoints += 10;
+        this.activeTurn = true;
     }
 
     getActionPoints() {return this.actionPoints;}
@@ -23,15 +25,15 @@ Player = class Player extends GameObject {
     setActionPoints(points) {this.actionPoints = points;}
 
     move(direction){
-        let position = super.getPosition();
-        switch (direction){
-            case 0: position.x++; break;
-            case 1: position.y++; break;
-            case 2: position.x--; break;
-            case 3: position.y--; break;
-            default: console.log("No direction given with move. players name: " + this.name)
-        }
-        super.setPosition(position.x, position.y);
+            let position = super.getPosition();
+            switch (direction){
+                case 0: position.x++; break;
+                case 1: position.y++; break;
+                case 2: position.x--; break;
+                case 3: position.y--; break;
+                default: console.log("No direction given with move. players name: " + this.name)
+            }
+            super.setPosition(position.x, position.y);
     }
 
     addToInventory() {
