@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+</head>
+
+<body>
+    <!--Start-->
+    <div id="startDiv">
+        <center>
+            <div id="chooseName">
+                <div id="login">
+                    Gebruikersnaam:
+                    <input name="GebruikersNaam" id="username" type="text" value="">
+                </div>
+                <br>
+                <div>
+                    <br>
+                    <button id="chooseColor" onclick="hideButton()">Start</button>
+                </div>
+            </div>
+        </center>
+
+
+        <div id="colorPicker">
+            <h2 id="textColor"> Pick a Color </h2>
+            <div class="ColorPickBox" id="ColorBlue" onclick="selectColor(this.id)"> Blue </div>
+            <div class="ColorPickBox" id="ColorRed" onclick="selectColor(this.id)"> Red </div>
+            <div class="ColorPickBox" id="ColorGreen" onclick="selectColor(this.id)"> Green </div>
+            <div class="ColorPickBox" id="ColorYellow" onclick="selectColor(this.id)"> Yellow </div>
+            <div class="ColorPickBox" id="ColorOrange"onclick="selectColor(this.id)"> Orange </div>
+            <div class="ColorPickBox" id="ColorPink"onclick="selectColor(this.id)"> Pink </div>
+            <div class="ColorPickBox" id="ColorBrown" onclick="selectColor(this.id)"> Brown </div>
+            <div class="ColorPickBox" id="ColorGray" onclick="selectColor(this.id)"> Gray </div>
+            <div class="ColorPickBox" id="ColorPurple" onclick="selectColor(this.id)"> Purple </div>
+        </div>
+
+    </div>
+
+    <!--Control\ingame-->
+    <div id="gameDiv" style="display:none;">
+
+        <div id="topBox">
+            <p id="active">
+                Je bent aan de beurt
+            </p>
+            <p id="not_active">
+                Je bent niet aan de beurt
+            </p>
+        </div>
+
+
+        
+
+        <button id="inventoryScreen"> Inventory </button>
+        <button id="notepadScreen" onclick="myNotepad()"> Notepad </button>
+
+        <div class="box" id="actionCounter">
+            <label for="Action points">
+                <abbr title="Action points">Action points</abbr>
+            </label>
+            <input id="qty" class="input" value="10" disabled="true" />
+        </div>
+
+        <p id="controlsBox">
+
+            <button id="up" onclick="modify_qty(-1)"> </button>
+            <button id="down" onclick="modify_qty(-1)"> </button>
+            <button id="left" onclick="modify_qty(-1)"> </button>
+            <button id="right" onclick="modify_qty(-1)"> </button>
+            <!-- <button id="action" onclick="modify_qty(-3)">Action</button> -->
+            <button id="action" onclick="myAction()">Action</button>
+
+        </p>
+    </div>
+
+    <!--pop-up screen-->
+
+    <div id="popUpBox" style="display:none;">
+
+    </div>
+
+
+    <!--Inventory-->
+    <div id="inventoryDiv" style="display:none;">
+
+        <p id="topBox">
+            prototype webapp Inventory
+        </p>
+
+        <p id="middleBox">
+
+            <button id="main" onclick="myMain()"> Main </button>
+            <button id="notepadScreen1" onclick="myNotepad()"> Notepad </button>
+
+        </p>
+
+        <p id="bottomBox">
+
+            <button id="inventoryBox1"> Item </buttonp>
+                <button id="inventoryBox2"> Item </buttonp>
+                    <button id="inventoryBox3"> Item </button>
+
+        </p>
+
+    </div>
+
+    <!--kladblok-->
+
+    <div id="notepadDiv" style="display:none">
+        <p id="topBox">
+            prototype webapp Inventory
+        </p>
+
+        <p id="middleBox">
+
+            <button id="main1" onclick="myMain1()"> Main </button>
+            <button id="inventoryScreen" onclick="myInventory()"> Inventory </button>
+
+        </p>
+
+        <p id="bottomBox">
+
+        </p>
+
+    </div>
+
+</body>
+
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+
+<script src="../js/inventory.js"></script>
+
+
+
+<script>
+
+
+
+    selectedColor = "";
+
+
+
+    function selectColor(id) {
+        var ColorPickBoxClass = document.getElementsByClassName("ColorPickBox");
+        for (i = 0; i < ColorPickBoxClass.length; i++) {
+            ColorPickBoxClass[i].style.border = "2px solid #fff";
+        }
+        var ColorPickBox = document.getElementById(id);
+        ColorPickBox.style.border = "2px solid black";
+        selectedColor = id;
+        selectedColor = selectedColor.replace('Color','');
+    }
+
+
+
+
+
+
+    function hideButton() {
+        userName = document.getElementById("username").value;
+        if(userName.length < 3){
+            alert('Voer een naam in van minimale 3 tekens!');
+        }
+        else if(selectedColor.length == 0){
+            alert('Je hebt geen kleur geselcteerd');
+        }
+        else {
+            var gameDiv = document.getElementById("gameDiv");
+            var ActionC = document.getElementById("actionCounter");
+            var colorP = document.getElementById("colorPicker");
+            var chooseName = document.getElementById("chooseName");
+            gameDiv.style.display = "inline-block";
+            ActionC.style.display = "inline-block";
+            colorP.style.display = "none";
+            chooseName.style.display = "none";
+
+        }
+    }
+
+
+    var socket = io();
+    socket.sockets.on('connection', function () {
+        socket.emit('currentsate');
+    });
+    socket.on("activeTurn"), function(activeTurn) {
+        stateHandler(data);
+    }
+    socket.on('message', function(data){
+        stateHandler(data);
+    });
+    document.getElementById("up").addEventListener("click", emitMove);
+    document.getElementById("down").addEventListener("click", emitMove);
+    document.getElementById("left").addEventListener("click", emitMove);
+    document.getElementById("right").addEventListener("click", emitMove);
+   // document.getElementById("action").addEventListener("click", emitAction);
+    //actions
+    document.getElementById("inventoryScreen").addEventListener("click", myInventory);
+    document.getElementById("main").addEventListener("click", myMain);
+
+    function emitMove() {
+        socket.emit("move", this.id);
+    }
+
+
+    function stateHandler(data){
+        if(data){
+            document.getElementById("active").style.display = 'block';
+            document.getElementById("not_active").style.display = 'none';
+        }
+        else {
+            document.getElementById("active").style.display = 'none';
+            document.getElementById("not_active").style.display = 'block';
+        }
+    }
+
+    /*action deplete on move*/
+
+    function modify_qty(val) {
+        var qty = document.getElementById('qty').value;
+        var new_qty = parseInt(qty, 10) + val;
+
+
+        if (new_qty < 3) {
+            document.getElementById("action").disabled = true;
+        }
+
+        if (new_qty <= 0) {
+            new_qty = 0
+            turnOver(new_qty);
+        }
+
+
+
+        document.getElementById('qty').value = new_qty;
+        
+    }
+
+    function disableControles() {
+        document.getElementById("action").disabled = true;
+        document.getElementById("up").disabled = true;
+        document.getElementById("down").disabled = true;
+        document.getElementById("left").disabled = true;
+        document.getElementById("right").disabled = true;
+    }
+
+    function turnOver(new_qty) {
+        if (new_qty === 0) {
+            socket.emit("endturn", this.id);
+        }
+        return new_qty;
+
+    }
+
+
+    function myInventory() {
+        gameDiv.style.display = 'none';
+        notepadDiv.style.display = 'none';
+        inventoryDiv.style.display = 'inline-block';
+    }
+
+    function myMain() {
+        inventoryDiv.style.display = 'none';
+        notepadDiv.style.display = 'none';
+        gameDiv.style.display = 'inline-block';
+    }
+
+    function myMain1() {
+        notepadDiv.style.display = 'none';
+        gameDiv.style.display = 'inline-block';
+    }
+
+    function myNotepad() {
+        inventoryDiv.style.display = 'none';
+        gameDiv.style.display = 'none';
+        notepadDiv.style.display = 'inline-block';
+    }
+
+    function myAction() {
+        popUpBox.style.display = 'inline-block';
+    }
+
+</script>
+
+</html>

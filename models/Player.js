@@ -1,23 +1,39 @@
-import GameObject from "./GameObject.js";
+var GameObject = require("./GameObject.js");
 
 Player = class Player extends GameObject {
     constructor (xPos,yPos,colorR,colorG,colorB, name) {
         super(xPos,yPos,colorR,colorG,colorB);
-        this.name
-        this.actionPoints
+        this.id;
+        this.name;
+        this.actionPoints;
         this.inventory = [];
-        this.activeTurn
+        this.activeTurn;
+        this.socket;
     }
+
+    setId(socketID){
+        this.id = socketID;
+    }
+
+    setSocket(socket){
+      this.socket = socket;
+     }
+
+     setName(name) {
+         this.name = name;
+     } 
 
     getName() {return this.name;}
 
     endTurn() {
         this.activeTurn = false;
+        this.socket.emit('message', 'kut');
     }
 
     startTurn() {
         this.actionPoints += 10;
         this.activeTurn = true;
+        this.socket.emit('message', this.activeTurn);
     }
 
     getActionPoints() {return this.actionPoints;}
@@ -31,10 +47,12 @@ Player = class Player extends GameObject {
                 case 1: position.y++; break;
                 case 2: position.x--; break;
                 case 3: position.y--; break;
-                default: console.log("No direction given with move. players name: " + this.name)
+                //default: console.log("No direction given with move. players name: " + this.name)
             }
             super.setPosition(position.x, position.y);
+            //actionHandler();
     }
+
 
     addToInventory() {
         // TODO
@@ -44,4 +62,5 @@ Player = class Player extends GameObject {
 
 }
 
-export default Player;
+
+module.exports = Player;

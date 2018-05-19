@@ -15,4 +15,5 @@ GameObject = class GameObject {
     setColor(r,g,b) {super.color = {r, g, b};}
 }
 
-export default GameObject;
+
+module.exports = GameObject;
