@@ -12,7 +12,7 @@ GameObject = class GameObject {
 
     getColor() {return this.color;}
 
-    setColor(r,g,b) {super.color = {r, g, b};}
+    setColor(r,g,b) {this.color = {r, g, b};}
 }
 
 

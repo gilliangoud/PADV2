@@ -48,7 +48,7 @@
             </p>
             <p id="not_active">
                 Je bent niet aan de beurt
-            </p>
+            </p> 
         </div>
 
 
@@ -66,12 +66,12 @@
 
         <p id="controlsBox">
 
-            <button id="up" onclick="modify_qty(-1)"> </button>
-            <button id="down" onclick="modify_qty(-1)"> </button>
-            <button id="left" onclick="modify_qty(-1)"> </button>
-            <button id="right" onclick="modify_qty(-1)"> </button>
+            <button id="up" onclick="modify_qty(-1)" disabled="true"> </button>
+            <button id="down" onclick="modify_qty(-1)"  disabled="true" > </button>
+            <button id="left" onclick="modify_qty(-1)" disabled="true" > </button>
+            <button id="right" onclick="modify_qty(-1)" disabled="true" > </button>
             <!-- <button id="action" onclick="modify_qty(-3)">Action</button> -->
-            <button id="action" onclick="myAction()">Action</button>
+            <button id="action" onclick="myAction()" disabled="true" >Action</button>
 
         </p>
     </div>
@@ -176,21 +176,24 @@
             ActionC.style.display = "inline-block";
             colorP.style.display = "none";
             chooseName.style.display = "none";
-
+            socket.emit("name", userName);
+            socket.emit("color", selectedColor);
         }
+
     }
 
 
     var socket = io();
-    socket.sockets.on('connection', function () {
-        socket.emit('currentsate');
+    socket.on("startTurn", function() {
+        startTurn();
     });
-    socket.on("activeTurn"), function(activeTurn) {
-        stateHandler(data);
-    }
-    socket.on('message', function(data){
-        stateHandler(data);
+    socket.on('endTurn', function(){
+          endTurn();
     });
+    socket.on('update-actionPoints', function(actionPoints){
+        updateActionPoints(actionPoints);
+    });
+
     document.getElementById("up").addEventListener("click", emitMove);
     document.getElementById("down").addEventListener("click", emitMove);
     document.getElementById("left").addEventListener("click", emitMove);
@@ -200,42 +203,34 @@
     document.getElementById("inventoryScreen").addEventListener("click", myInventory);
     document.getElementById("main").addEventListener("click", myMain);
 
+    function updateActionPoints(actionPoints){
+        document.getElementById("qty").value = actionPoints;
+    }
+
+
+
     function emitMove() {
         socket.emit("move", this.id);
     }
 
-
-    function stateHandler(data){
-        if(data){
-            document.getElementById("active").style.display = 'block';
-            document.getElementById("not_active").style.display = 'none';
+    function startTurn(){ 
+          document.getElementById("active").style.display = 'block';
+          document.getElementById("not_active").style.display = 'none';
+           activateControles();
         }
-        else {
+
+
+
+    function endTurn(){ 
             document.getElementById("active").style.display = 'none';
             document.getElementById("not_active").style.display = 'block';
+            disableControles();
         }
-    }
 
     /*action deplete on move*/
 
     function modify_qty(val) {
-        var qty = document.getElementById('qty').value;
-        var new_qty = parseInt(qty, 10) + val;
-
-
-        if (new_qty < 3) {
-            document.getElementById("action").disabled = true;
-        }
-
-        if (new_qty <= 0) {
-            new_qty = 0
-            turnOver(new_qty);
-        }
-
-
-
-        document.getElementById('qty').value = new_qty;
-        
+        socket.emit("action",val);
     }
 
     function disableControles() {
@@ -246,12 +241,12 @@
         document.getElementById("right").disabled = true;
     }
 
-    function turnOver(new_qty) {
-        if (new_qty === 0) {
-            socket.emit("endturn", this.id);
-        }
-        return new_qty;
-
+      function activateControles() {
+        document.getElementById("action").disabled = false;
+        document.getElementById("up").disabled = false;
+        document.getElementById("down").disabled = false;
+        document.getElementById("left").disabled = false;
+        document.getElementById("right").disabled = false;
     }
 
 
