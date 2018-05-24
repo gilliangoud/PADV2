@@ -27,7 +27,6 @@ BoardController = class BoardController {
         else{
             index = (pos_y*coll)-(pos_x-1);
         }
-        console.log(index);
         return index-1
     }
 

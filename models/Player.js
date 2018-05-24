@@ -86,6 +86,18 @@ Player = class Player extends GameObject {
                 case 'down': position.y--; break;
                 default: console.log("No direction given with move. players name: " + this.name)
             }
+            if (position.x < 1){
+                position.x =1;
+            }
+            if (position.y < 1){
+                position.x =1;
+            }
+            if(position.x > 3){
+                position.x =3;
+            }
+            if(position.y > 3){
+                position.y =3;
+            }
             this.setPosition(position.x, position.y);
             //actionHandler();
     }
