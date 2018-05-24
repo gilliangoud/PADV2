@@ -7,6 +7,7 @@
     },
     "description": "a gameserver app",
     "dependencies": {
+        "all": "0.0.0",
         "express": "^4.16.3",
         "npm": "^5.8.0",
         "python-shell": "^0.5.0",

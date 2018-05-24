@@ -1,30 +1,62 @@
-import BoardController from "../board/BoardController.js";
+var boardController = require('../board/BoardController.js');
 
 Game = class Game {
     constructor() {
+        this.players = [];
         this.gameObjects = [];
         this.currentPlayerIndex = 0;
-        this.board = new BoardController(10,10,21);
+        this.board = new BoardController();
         this.gameState;
     }
 
+    updateBoard() {
+        this.board.displayGame(this.gameObjects,this.players);
+    }
+
+
     nextTurn() {
-        // TODO end players turn
-        //player.endturn
-        // currentplayerindex ++ or = player.id
+            this.currentPlayer = this.players[this.currentPlayerIndex];
+            this.currentPlayer.endTurn();
+            if(this.currentPlayerIndex == this.players.length -1){
+                this.currentPlayerIndex = 0;
+            }
+            else {
+                this.currentPlayerIndex++;
+            }
+            this.players[this.currentPlayerIndex].startTurn();
+            this.players[this.currentPlayerIndex].socket.emit('update-actionPoints',this.players[this.currentPlayerIndex].actionPoints);
     }
 
     addPlayer(player) {
-        this.gameObjects.push(player);
+        this.playerCount = this.players.length;
+        this.players.push(player);
+        if(this.playerCount == 0){
+               player.startTurn();
+        }
+        console.log("Player " + player.id + " added to game.");
     }
 
     removePlayer(player) {
-        let index = this.gameObjects.indexOf(player);
-        if (index > -1) this.gameObjects.splice(index, 1);
+        let index = this.players.indexOf(player);
+        if (index > -1) this.players.splice(index, 1);
+    }
+
+    actionHandler(val) {
+        console.log(this.currentPlayerIndex)
+        this.currentPlayer = this.players[this.currentPlayerIndex];
+        this.currentPlayer.actionPoints+= val;
+        if (this.currentPlayer.actionPoints <= 0) {
+            this.nextTurn();
+        }
+        this.currentPlayer.socket.emit('update-actionPoints',this.currentPlayer.actionPoints);
+    
+
     }
 
     startGame() {
-        //change isPlaying to true
+        gameState = True;
+        this.currentPlayer = this.players[this.currentPlayerIndex];
+        this.currentPlayer.startTurn();
     }
 
     endGame() {
@@ -33,4 +65,4 @@ Game = class Game {
 
 }
 
-export default Game;
+module.exports = Game;
