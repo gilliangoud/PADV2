@@ -17,7 +17,7 @@ app.get('/', function (req, res) {
 });
 
 game = new Game();
-
+game.initMap();
 io.on('connection', (socket) => {
   let player = new Player(1,1,0,0,0);
   player.setId(socket.id);

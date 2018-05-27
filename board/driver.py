@@ -4,7 +4,7 @@ import time
 
 
 
-LED_COUNT   = 9   # Number of LED pixels.
+LED_COUNT   = 100   # Number of LED pixels.
 LED_PIN     = 21      # GPIO pin connected to the pixels (must support PWM!).
 LED_FREQ_HZ = 800000  # LED signal frequency in hertz (usually 800khz)
 LED_DMA     = 10       # DMA channel to use for generating signal (try 5)
@@ -53,7 +53,8 @@ while(True):
     data = read_in()
     sys.stdout.flush()
     if data:
-        inputArray = data['input']
+        inputArray = data
+	print(data);
         blinkState = array_loop(inputArray)
     blinkState =array_loop(inputArray)
     start = time.time()
@@ -62,7 +63,7 @@ while(True):
         data = read_in()
         sys.stdout.flush()
         if data:
-            inputArray = data['input']
+            inputArray = data
             blinkState = array_loop(inputArray)
             break
         if i >= len(max(blink, key=len)):
