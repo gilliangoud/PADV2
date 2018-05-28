@@ -14,4 +14,6 @@ Wall = class Wall extends GameObject {
     }
     
 }
-    
+
+
+export default Wall;

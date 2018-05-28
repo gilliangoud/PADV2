@@ -9,7 +9,8 @@ Door = class Door extends GameObject {
     
 doorOpen = false;
 boolean(doorOpen)
-function openDoor(){
+
+openDoor(){
     if(doorOpen === false && collision === false && doorKey === true){
         doorOpen = true;
         collision = false;
@@ -18,4 +19,4 @@ function openDoor(){
     
 }
     
-    
+export default Door;    

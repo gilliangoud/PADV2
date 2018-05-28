@@ -5,17 +5,23 @@ Player = class Player extends GameObject {
         super(xPos,yPos,colorR,colorG,colorB);
         this.name;
         this.actionPoints;
-        this.inventory = [];
+        
     }
 
     getName() {return this.name;}
 
     endTurn() {
-        // TODO
+        if(actionPoints === 0){
+            
+            nextTurn();
+        }
     }
 
     startTurn() {
-        // TODO
+        if(playerindex === currentplayer){
+        setActionPoints(10);
+        
+    }
     }
 
     getActionPoints() {return this.actionPoints;}
@@ -34,8 +40,16 @@ Player = class Player extends GameObject {
         super.setPosition(position.x, position.y);
     }
 
-    addToInventory() {
-        // TODO
+    addItem() {
+        inventory.push();
+    }
+
+    inventory = [];
+
+    useItem(){
+        var z = document.getElementById("itemnameofzo")
+        var chosenItem = z.value;
+        this.inventory.pop(chosenItem);
     }
 
     getInventory() {return this.inventory;}

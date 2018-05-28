@@ -14,4 +14,4 @@ addtoNotes(){
     
 }
     
-    
+export default Clue;    

@@ -5,11 +5,8 @@ Fusebox = class Fusebox extends GameObject {
         super(xPos,yPos,colorR,colorG,colorB);
         
     }
-    
-
-
-    
-    
+        
 }
     
-    
+
+export default Fusebox;    

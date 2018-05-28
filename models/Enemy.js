@@ -13,10 +13,18 @@ Enemy = class Enemy extends GameObject {
     startTurn() {
         
     }
-    
+
+    spawnEnemy(){
+        
+    }
+
+
     checkturn(){
         if(currentplayerindex == 3){
-            //spawn ofzo
+            spawnEnemy;
+            
         }
     }
 }
+
+export default Enemy;

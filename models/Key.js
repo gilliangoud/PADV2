@@ -14,4 +14,5 @@ addtoInventory(){
     
 }
     
-    
+
+export default Key;   

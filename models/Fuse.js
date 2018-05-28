@@ -14,4 +14,4 @@ addtoInventory(){
     
 }
     
-    
+export default Fuse;  
