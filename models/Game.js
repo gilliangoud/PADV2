@@ -1,5 +1,5 @@
 var boardController = require('../board/BoardController.js');
-var Wall = require('./Wall.js');
+var Map = require('./GameMap.js');
 Game = class Game {
     constructor() {
         this.players = [];
@@ -10,42 +10,7 @@ Game = class Game {
     }
 
 	initMap() {
-		    this.gameObjects.push(new Wall(2,4));
-            this.gameObjects.push(new Wall(3,4));
-            this.gameObjects.push(new Wall(4,4));
-            this.gameObjects.push(new Wall(6,1));
-            this.gameObjects.push(new Wall(6,2));
-            this.gameObjects.push(new Wall(6,3));
-            this.gameObjects.push(new Wall(6,4));
-            this.gameObjects.push(new Wall(9,1));
-            this.gameObjects.push(new Wall(9,3));
-            this.gameObjects.push(new Wall(9,4));
-            this.gameObjects.push(new Wall(7,4));
-            this.gameObjects.push(new Wall(10,4));
-            this.gameObjects.push(new Wall(10,7));
-            this.gameObjects.push(new Wall(9,7));
-            this.gameObjects.push(new Wall(8,7));
-            this.gameObjects.push(new Wall(8,9));
-            this.gameObjects.push(new Wall(8,10));
-            this.gameObjects.push(new Wall(6,7));
-            this.gameObjects.push(new Wall(6,8));
-            this.gameObjects.push(new Wall(6,9));
-            this.gameObjects.push(new Wall(6,10));
-            this.gameObjects.push(new Wall(4,7));
-            this.gameObjects.push(new Wall(4,8));
-            this.gameObjects.push(new Wall(4,10));
-            this.gameObjects.push(new Wall(1,7));
-            this.gameObjects.push(new Wall(2,7));
-            this.gameObjects.push(new Wall(3,7));
-
-            this.gameObjects.push(new Wall(9,2));
-            this.gameObjects.push(new Wall(8,4));
-            this.gameObjects.push(new Wall(7,7));
-            this.gameObjects.push(new Wall(8,8));
-            this.gameObjects.push(new Wall(5,4));
-            this.gameObjects.push(new Wall(5,7));
-            this.gameObjects.push(new Wall(4,9));
-            console.log(this.gameObjects);
+        this.map = new Map(this.gameObjects);
 	}
 	
 	

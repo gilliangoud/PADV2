@@ -2,7 +2,7 @@ var GameObject = require("./GameObject.js");
 
 
 Player = class Player extends GameObject {
-    constructor (xPos,yPos,colorR,colorG,colorB, name) {
+    constructor (xPos,yPos,colorR,colorG,colorB) {
         super(xPos, yPos,colorR,colorG,colorB);
         this.id;
         this.name;
@@ -87,7 +87,6 @@ Player = class Player extends GameObject {
                 default: console.log("No direction given with move. players name: " + this.name)
             }
             this.setPosition(position.x, position.y);
-            //actionHandler();
     }
 
 

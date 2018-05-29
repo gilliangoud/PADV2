@@ -27,7 +27,6 @@ BoardController = class BoardController {
         else{
             index = (pos_y*coll)-(pos_x-1);
         }
-        console.log(index);
         return index-1
     }
 
@@ -49,6 +48,7 @@ BoardController = class BoardController {
             var r = color.r;
             var g = color.g;
             var b = color.b;
+            var convertedColor = this.ConvertColor(r,g,b);
             gameArray[this.get_led_position(x,y)] = convertedColor;
         }
         var tempArray = [];
@@ -77,8 +77,8 @@ BoardController = class BoardController {
                 tempCount++;
             }
         }
-        console.log(gameObjects);
-      //  this.pyshell.send(JSON.stringify(gameArray));
+        console.log(gameArray);
+        //this.pyshell.send(JSON.stringify(gameArray));
     }
 }
 

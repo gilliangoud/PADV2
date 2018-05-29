@@ -1,12 +1,9 @@
 var GameObject = require("./GameObject.js");
 
 Wall = class Wall extends GameObject {
-    constructor (x, y){
-        r = 205;
-        g = 133;
-        b = 63;
-        super(x,y,r, g , b);
+    constructor(x, y){
+        super(x,y,205, 133 , 63);
     }
 }
 
-module.exports = GameObject;
+module.exports = Wall;

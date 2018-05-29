@@ -1,7 +1,7 @@
 Door = class Door extends GameObject {
     constructor (x, y){
-        super(x,y,r,g,b);
+        super(x,y,69,69,69);
     }
 }
 
-module.exports = GameObject;
+module.exports = Door;
