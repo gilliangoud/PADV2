@@ -230,6 +230,10 @@
     socket.on('update-actionPoints', function(actionPoints){
         updateActionPoints(actionPoints);
     });
+    socket.on('collision', function(){
+        alert('Je kan hier niet doorheen');
+    });
+
 
     document.getElementById("up").addEventListener("click", emitMove);
     document.getElementById("down").addEventListener("click", emitMove);

@@ -9,6 +9,23 @@ Game = class Game {
         this.gameState;
     }
 
+    moveAction(direction){
+        this.collsionFlag  = false;
+        this.currentPlayer = this.players[this.currentPlayerIndex];
+        this.tempPosition = this.currentPlayer.move(direction);
+        for(var i in this.gameObjects){
+            console.log(this.gameObjects);
+            console.log(this.tempPosition);
+           if ((this.gameObjects[i].position.x == this.tempPosition.x) && (this.gameObjects[i].position.y == this.tempPosition.y) && (this.gameObjects[i].passable == false)) {
+             this.currentPlayer.socket.emit('collision');
+             this.collsionFlag = true;
+           }
+        }
+        if (this.collsionFlag == false) {
+             this.currentPlayer.setPosition(this.tempPosition.x,this.tempPosition.y);
+        }
+    }
+
 	initMap() {
         this.map = new Map(this.gameObjects);
 	}

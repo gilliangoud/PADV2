@@ -86,8 +86,10 @@ Player = class Player extends GameObject {
                 case 'down': position.y--; break;
                 default: console.log("No direction given with move. players name: " + this.name)
             }
-            this.setPosition(position.x, position.y);
+            return position;
     }
+
+
 
 
     addToInventory() {

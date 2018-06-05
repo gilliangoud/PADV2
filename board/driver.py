@@ -26,6 +26,7 @@ def array_loop(inputArray):
     blinkcount = 0
     blinkState = False
     for x in range(len(inputArray)):
+        print('Type: '+ isinstance(inputArray))
         if (isinstance(inputArray[x], list)):
             blink.append([])
             blink[blinkcount].append(x)
@@ -54,7 +55,6 @@ while(True):
     sys.stdout.flush()
     if data:
         inputArray = data
-	print(data);
         blinkState = array_loop(inputArray)
     blinkState =array_loop(inputArray)
     start = time.time()

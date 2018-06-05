@@ -2,6 +2,7 @@ GameObject = class GameObject {
     constructor (x, y, r, g, b){
         this.position = {x, y};
         this.color = {r, g, b};
+        this.passable = true;
     }
 
     setPosition(x,y){

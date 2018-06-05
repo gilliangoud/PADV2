@@ -1,12 +1,12 @@
 BoardController = class BoardController {
-/*    constructor() {
+  constructor() {
        var PythonShell = require('python-shell');
         var options = {
             mode: 'JSON',
             scriptPath: __dirname,
             stdio: 'pipe'
         };
-    //    this.pyshell = new PythonShell('../board/driver.py', options);
+        this.pyshell = new PythonShell('../board/driver.py', options);
 
         this.pyshell.stdout.on('data', function (message) {
             console.log("python: " + message);
@@ -16,7 +16,7 @@ BoardController = class BoardController {
     setBrightness(brightness) {
         // TODO structure json formatted message to driver, so it understands.
         self.pyshell.send(JSON.stringify(brightness));
-    } */
+    } 
 
     get_led_position(pos_x ,pos_y){
         var coll = 10;
@@ -77,8 +77,8 @@ BoardController = class BoardController {
                 tempCount++;
             }
         }
-        console.log(gameArray);
-        //this.pyshell.send(JSON.stringify(gameArray));
+        //console.log(gameArray);
+        this.pyshell.send(JSON.stringify(gameArray));
     }
 }
 
