@@ -22,29 +22,34 @@ Game = class Game {
            }
         }
         if (this.collsionFlag == false) {
-         //    this.currentPlayer.setPosition(this.tempPosition.x,this.tempPosition.y);
+          this.currentPlayer.setPosition(this.tempPosition.x,this.tempPosition.y);
         }
     }
 
+    // inlezen van map
 	initMap() {
         this.map = new Map(this.gameObjects);
 	}
 	
-	
+	// update board
     updateBoard() {
         this.board.displayGame(this.gameObjects,this.players);
     }
 
-
+    // wissel naar volgende speler die aan de beurt is
     nextTurn() {
+            // inlezen huidige speler en beidingen van de beurt van huidige speler
             this.currentPlayer = this.players[this.currentPlayerIndex];
             this.currentPlayer.endTurn();
+            // als het de laatste speler is in de array begin opnieuw
             if(this.currentPlayerIndex == this.players.length -1){
                 this.currentPlayerIndex = 0;
             }
+            // ga naar volgende speler in de array
             else {
                 this.currentPlayerIndex++;
             }
+            // begin beurt volgende speler
             this.players[this.currentPlayerIndex].startTurn();
             this.players[this.currentPlayerIndex].socket.emit('update-actionPoints',this.players[this.currentPlayerIndex].actionPoints);
     }
