@@ -1,5 +1,5 @@
 BoardController = class BoardController {
-  constructor() {
+  constructor() { /*
        var PythonShell = require('python-shell');
         var options = {
             mode: 'JSON',
@@ -10,7 +10,7 @@ BoardController = class BoardController {
 
         this.pyshell.stdout.on('data', function (message) {
             console.log("python: " + message);
-        }); 
+        }); */
 } 
 
     setBrightness(brightness) {
@@ -77,8 +77,8 @@ BoardController = class BoardController {
                 tempCount++;
             }
         }
-        //console.log(gameArray);
-        this.pyshell.send(JSON.stringify(gameArray));
+        console.log(gameArray);
+       // this.pyshell.send(JSON.stringify(gameArray));
     }
 }
 

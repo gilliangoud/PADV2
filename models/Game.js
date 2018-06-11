@@ -22,7 +22,7 @@ Game = class Game {
            }
         }
         if (this.collsionFlag == false) {
-             this.currentPlayer.setPosition(this.tempPosition.x,this.tempPosition.y);
+         //    this.currentPlayer.setPosition(this.tempPosition.x,this.tempPosition.y);
         }
     }
 
