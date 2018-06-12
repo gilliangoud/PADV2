@@ -90,7 +90,6 @@ Player = class Player extends GameObject {
                 case 'down': position.y--; break;
                 default: console.log("No direction given with move. players name: " + this.name)
             }
-            return position;
     }
 }
 
