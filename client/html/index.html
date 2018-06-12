@@ -26,15 +26,15 @@
 
         <div id="colorPicker">
             <h2 id="textColor"> Pick a Color </h2>
-            <div class="ColorPickBox" id="ColorBlue" onclick="selectColor(this.id)"> Blue </div>
-            <div class="ColorPickBox" id="ColorRed" onclick="selectColor(this.id)"> Red </div>
-            <div class="ColorPickBox" id="ColorGreen" onclick="selectColor(this.id)"> Green </div>
-            <div class="ColorPickBox" id="ColorYellow" onclick="selectColor(this.id)"> Yellow </div>
-            <div class="ColorPickBox" id="ColorOrange"onclick="selectColor(this.id)"> Orange </div>
-            <div class="ColorPickBox" id="ColorPink"onclick="selectColor(this.id)"> Pink </div>
-            <div class="ColorPickBox" id="ColorBrown" onclick="selectColor(this.id)"> Brown </div>
-            <div class="ColorPickBox" id="ColorGray" onclick="selectColor(this.id)"> Gray </div>
-            <div class="ColorPickBox" id="ColorPurple" onclick="selectColor(this.id)"> Purple </div>
+            <div class="ColorPickBox" id="ColorBlue" onclick="changeColorBlue(this.id)"> Blue </div>
+            <div class="ColorPickBox" id="ColorRed" onclick="changeColorRed(this.id)"> Red </div>
+            <div class="ColorPickBox" id="ColorGreen" onclick="changeColorGreen(this.id)"> Green </div>
+            <div class="ColorPickBox" id="ColorYellow" onclick="changeColorYellow(this.id)"> Yellow </div>
+            <div class="ColorPickBox" id="ColorOrange"onclick="schangeColorOrange(this.id)"> Orange </div>
+            <div class="ColorPickBox" id="ColorPink"onclick="changeColorPink(this.id)"> Pink </div>
+            <div class="ColorPickBox" id="ColorBrown" onclick="changeColorBrown(this.id)"> Brown </div>
+            <div class="ColorPickBox" id="ColorGray" onclick="changeColorGray(this.id)"> Gray </div>
+            <div class="ColorPickBox" id="ColorPurple" onclick="changeColorPurple(this.id)"> Purple </div>
         </div>
 
     </div>
@@ -129,7 +129,9 @@
 
 </body>
 
+
 <script src="../../node_modules/socket.io/lib/socket.js"></script>
+
 
 <script src="../js/inventory.js"></script>
 
@@ -141,6 +143,43 @@
 
     selectedColor = "";
 
+ function changeColorBlue(id) {
+        document.getElementById('chooseColor').style.backgroundColor = "#0000ff";
+	selectColor(id);
+    }
+    function changeColorRed(id) {
+        document.getElementById('chooseColor').style.backgroundColor = "#ff0000";
+	selectColor(id);
+    }
+    function changeColorGreen(id) {
+        document.getElementById('chooseColor').style.backgroundColor = "#00FF00";
+	selectColor(id)
+    }
+    function changeColorYellow(id) {
+        document.getElementById('chooseColor').style.backgroundColor = "#ffff00";
+	selectColor(id)
+    }
+    function changeColorOrange(id) {
+        document.getElementById('chooseColor').style.backgroundColor = "#ffa500";
+	selectColor(id)
+    }
+    function changeColorPink(id) {
+        document.getElementById('chooseColor').style.backgroundColor = "#ffc0cb";
+	selectColor(id)
+    }
+    function changeColorBrown(id) {
+        document.getElementById('chooseColor').style.backgroundColor = "#a52a2a";
+	selectColor(id)
+    }
+    function changeColorGray(id) {
+        document.getElementById('chooseColor').style.backgroundColor = "#808080";
+	selectColor(id)
+    }
+    function changeColorPurple(id) {
+        document.getElementById('chooseColor').style.backgroundColor = "#800080";
+	selectColor(id)
+}
+    
 
 
     function selectColor(id) {
@@ -193,6 +232,10 @@
     socket.on('update-actionPoints', function(actionPoints){
         updateActionPoints(actionPoints);
     });
+    socket.on('collision', function(){
+        alert('Je kan hier niet doorheen');
+    });
+
 
     document.getElementById("up").addEventListener("click", emitMove);
     document.getElementById("down").addEventListener("click", emitMove);

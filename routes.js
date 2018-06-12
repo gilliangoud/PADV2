@@ -1,6 +1,6 @@
 module.exports.start = function (socket, player, game) {
      socket.on("move", (direction) => {
-         player.move(direction);
+         game.moveAction(direction);
          game.updateBoard();
      });
     socket.on("currentstate", () => {

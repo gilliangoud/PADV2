@@ -2,7 +2,7 @@ var GameObject = require("./GameObject.js");
 
 
 Player = class Player extends GameObject {
-    constructor (xPos,yPos,colorR,colorG,colorB, name) {
+    constructor (xPos,yPos,colorR,colorG,colorB) {
         super(xPos, yPos,colorR,colorG,colorB);
         this.id;
         this.name;
@@ -11,7 +11,6 @@ Player = class Player extends GameObject {
         this.activeTurn;
         this.socket;
     }
-
     setId(socketID){
         this.id = socketID;
     }
@@ -21,6 +20,7 @@ Player = class Player extends GameObject {
      }
 
      setRGBColor(color){
+         // switch case voor kleur selcetie
         switch(color){
             case 'Red':
                 this.setColor(255,0,0);
@@ -61,11 +61,13 @@ Player = class Player extends GameObject {
 
     getName() {return this.name;}
 
+    // functie voor het beindigen van een beurt
     endTurn() {
         this.activeTurn = false;
         this.socket.emit('endTurn');
     }
 
+    //functie voor een beurt te starten
     startTurn() {
         this.actionPoints += 10;
         this.activeTurn = true;
@@ -77,6 +79,8 @@ Player = class Player extends GameObject {
 
     setActionPoints(points) {this.actionPoints = points;}
 
+
+    // functie voor het verplaatsen van een speler
     move(direction){
             let position = this.getPosition();
             switch (direction){
@@ -86,29 +90,7 @@ Player = class Player extends GameObject {
                 case 'down': position.y--; break;
                 default: console.log("No direction given with move. players name: " + this.name)
             }
-            if (position.x < 1){
-                position.x =1;
-            }
-            if (position.y < 1){
-                position.x =1;
-            }
-            if(position.x > 3){
-                position.x =3;
-            }
-            if(position.y > 3){
-                position.y =3;
-            }
-            this.setPosition(position.x, position.y);
-            //actionHandler();
     }
-
-
-    addToInventory() {
-        // TODO
-    }
-
-    getInventory() {return this.inventory;}
-
 }
 
 
